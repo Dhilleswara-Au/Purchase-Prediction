@@ -21,6 +21,10 @@ scaler = joblib.load('scaler.joblib')
 models = {name: joblib.load(fname) for name, fname in MODEL_FILES.items()}
 accuracies = joblib.load('accuracies.joblib')
 
+@app.route("/")
+def home():
+    return "✅ Purchase Prediction API is running!"
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     prediction_results = None
