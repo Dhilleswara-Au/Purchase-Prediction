@@ -3,7 +3,6 @@ import numpy as np
 import joblib
 
 app = Flask(__name__)
-app.run(host='0.0.0.0', port=10000)
 
 # Model names and display names
 MODEL_FILES = {
@@ -20,10 +19,6 @@ MODEL_FILES = {
 scaler = joblib.load('scaler.joblib')
 models = {name: joblib.load(fname) for name, fname in MODEL_FILES.items()}
 accuracies = joblib.load('accuracies.joblib')
-
-@app.route("/")
-def home():
-    return "✅ Purchase Prediction API is running!"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -47,4 +42,6 @@ def index():
     return render_template('index.html', prediction_results=prediction_results, user_input=user_input)
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
