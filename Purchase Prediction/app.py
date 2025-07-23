@@ -3,6 +3,7 @@ import numpy as np
 import joblib
 
 app = Flask(__name__)
+app.run(host='0.0.0.0', port=10000)
 
 # Model names and display names
 MODEL_FILES = {
